@@ -2,13 +2,20 @@ package main
 
 import (
 	"coredemo/framework"
+	"fmt"
 	"net/http"
 )
 
 func main() {
+	core := framework.NewCore()
+	registerRouter(core)
 	server := &http.Server{
-		Handler: framework.NewCore(),
-		Addr:    "localhost:8080",
+		Handler: core,
+		Addr:    ":8080",
 	}
-	server.ListenAndServe()
+	fmt.Println("Started......")
+	err := server.ListenAndServe()
+	if err != nil {
+		return
+	}
 }
