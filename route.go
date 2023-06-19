@@ -1,9 +1,12 @@
 package main
 
-import "coredemo/framework"
+import (
+	"coredemo/framework"
+	"time"
+)
 
 func registerRouter(core *framework.Core) {
-	core.Get("/user/login", UserLoginController)
+	core.Get("/user/login", framework.TimeoutHandler(UserLoginController, time.Second))
 
 	subjectApi := core.Group("/subject")
 	{
