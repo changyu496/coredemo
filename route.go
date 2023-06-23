@@ -2,11 +2,11 @@ package main
 
 import (
 	"coredemo/framework"
-	"time"
+	"coredemo/framework/middleware"
 )
 
 func registerRouter(core *framework.Core) {
-	core.Get("/user/login", framework.TimeoutHandler(UserLoginController, time.Second))
+	core.Get("/user/login", middleware.Test1(), UserLoginController)
 
 	subjectApi := core.Group("/subject")
 	{
@@ -17,7 +17,7 @@ func registerRouter(core *framework.Core) {
 
 		subjectInnerApi := subjectApi.Group("/info")
 		{
-			subjectInnerApi.Get("/name", SubjectNameController)
+			subjectInnerApi.Get("/name", middleware.Test1(), SubjectNameController)
 		}
 	}
 }
